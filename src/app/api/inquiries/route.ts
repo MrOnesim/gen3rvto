@@ -13,6 +13,9 @@ export async function POST(request: Request) {
     if (!name || !email || !emailPattern.test(email) || !message) {
       return NextResponse.json({ error: "Merci de compléter les champs obligatoires." }, { status: 400 });
     }
+    if (!db) {
+      return NextResponse.json({ ok: true, notice: "Database not configured" });
+    }
     await db.insert(inquiries).values({
       type: body.type === "contact" ? "contact" : "booking",
       name: name.slice(0, 160),

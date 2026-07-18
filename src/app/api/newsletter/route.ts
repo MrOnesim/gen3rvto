@@ -11,6 +11,9 @@ export async function POST(request: Request) {
     if (!email || !emailPattern.test(email)) {
       return NextResponse.json({ error: "Adresse e-mail invalide." }, { status: 400 });
     }
+    if (!db) {
+      return NextResponse.json({ ok: true, notice: "Database not configured" });
+    }
     await db.insert(newsletterSubscribers).values({
       email,
       locale: body.locale === "en" ? "en" : "fr",
