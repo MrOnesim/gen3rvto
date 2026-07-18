@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 import "./globals.css";
 import { LangProvider } from "@/components/lang";
 import { Header } from "@/components/header";
@@ -27,6 +28,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#050505", colorScheme: "dark" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
+  const umamiId = process.env.NEXT_PUBLIC_UMAMI_ID;
+  const umamiSrc = process.env.NEXT_PUBLIC_UMAMI_SRC ?? "https://analytics.umami.cloud/script.js";
   return (
     <html lang="fr">
       <body>
@@ -39,6 +42,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <YouTubeMiniPlayer tracks={videos.map((v) => ({ id: v.youtubeId, title: v.title }))} />
           )}
         </LangProvider>
+        {umamiId && (
+          <Script
+            src={umamiSrc}
+            data-website-id={umamiId}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
     </html>
   );
