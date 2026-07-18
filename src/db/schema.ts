@@ -19,11 +19,3 @@ export const inquiries = pgTable("inquiries", {
   status: varchar("status", { length: 30 }).notNull().default("new"),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 });
-
-export const events = pgTable("events", {
-  id: serial("id").primaryKey(),
-  kind: varchar("kind", { length: 30 }).notNull(),
-  target: varchar("target", { length: 120 }).notNull(),
-  platform: varchar("platform", { length: 30 }),
-  createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-});

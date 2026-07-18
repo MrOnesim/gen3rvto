@@ -71,17 +71,6 @@ function Player() {
 export function MusiquePageContent() {
   const { t } = useLang();
 
-  const track = (target: string, platform: string) => {
-    try {
-      fetch("/api/events", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: "track_click", target, platform }),
-        keepalive: true,
-      });
-    } catch {}
-  };
-
   return (
     <main className="overflow-hidden">
       {/* ===== DISCOGRAPHY ===== */}
@@ -96,7 +85,7 @@ export function MusiquePageContent() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[22px]">
           {releases.map((r, i) => (
             <Reveal as="article" key={r.title} delay={i * 90}>
-              <a href={r.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Écouter ${r.title}`} onClick={() => track(r.title, "Spotify")} className="block overflow-hidden group">
+              <a href={r.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Écouter ${r.title}`} className="block overflow-hidden group">
                 <div className="transition-transform duration-500 group-hover:scale-[1.03]">
                   <CoverArt title={r.title} i={i} tone={r.tone} />
                 </div>
@@ -107,12 +96,12 @@ export function MusiquePageContent() {
                   <h3 className="text-[16px] my-[5px]">{r.title}</h3>
                   <p className="text-[8px] text-[#b3b3b3] m-0 tracking-[1px]">{r.date}</p>
                   <div className="flex gap-[14px] mt-[10px]">
-                    <a href={r.spotify} target="_blank" rel="noopener noreferrer" onClick={() => track(r.title, "Spotify")} className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">Spotify</a>
-                    <a href={r.apple} target="_blank" rel="noopener noreferrer" onClick={() => track(r.title, "Apple")} className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">Apple</a>
-                    {r.youtube && <a href={r.youtube} target="_blank" rel="noopener noreferrer" onClick={() => track(r.title, "YouTube")} className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">YouTube</a>}
+                    <a href={r.spotify} target="_blank" rel="noopener noreferrer" className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">Spotify</a>
+                    <a href={r.apple} target="_blank" rel="noopener noreferrer" className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">Apple</a>
+                    {r.youtube && <a href={r.youtube} target="_blank" rel="noopener noreferrer" className="text-[8px] tracking-[1px] uppercase text-[#9a9a9a] border-b border-[#ccc] pb-[3px] hover:text-brand hover:border-brand">YouTube</a>}
                   </div>
                 </div>
-                <a href={r.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Écouter ${r.title}`} onClick={() => track(r.title, "Spotify")} className="w-10 h-10 shrink-0 rounded-full border border-[#aaa] grid place-items-center transition-colors hover:bg-brand hover:border-brand hover:text-white">
+                <a href={r.spotify} target="_blank" rel="noopener noreferrer" aria-label={`Écouter ${r.title}`} className="w-10 h-10 shrink-0 rounded-full border border-[#aaa] grid place-items-center transition-colors hover:bg-brand hover:border-brand hover:text-white">
                   <Play size={18} fill="currentColor" />
                 </a>
               </div>
